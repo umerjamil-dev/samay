@@ -1,7 +1,6 @@
 import mysql from 'mysql2/promise';
 
 // Database connection configuration
-// In production, these should be in your .env file
 const dbConfig = {
   host: process.env.DB_HOST || 'localhost',
   user: process.env.DB_USER || 'root',

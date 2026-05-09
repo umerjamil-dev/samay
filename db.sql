@@ -24,9 +24,12 @@ CREATE TABLE IF NOT EXISTS bookings (
     last_name VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL,
     phone VARCHAR(20) NOT NULL,
+    id_number VARCHAR(50),
     flight_number VARCHAR(20),
     comments TEXT,
     status ENUM('Pending', 'Confirmed', 'Cancelled') DEFAULT 'Pending',
+    payment_status ENUM('Unpaid', 'Paid') DEFAULT 'Unpaid',
+    zelle_reference VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -38,15 +41,16 @@ CREATE TABLE IF NOT EXISTS cars (
     passengers INT NOT NULL,
     bags INT NOT NULL,
     price_per_km DECIMAL(10, 2) NOT NULL,
+    price_per_hour DECIMAL(10, 2) NOT NULL,
     base_price DECIMAL(10, 2) DEFAULT 0.00,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Insert some default cars
-INSERT INTO cars (name, image_url, passengers, bags, price_per_km, base_price)
+INSERT INTO cars (name, image_url, passengers, bags, price_per_km, price_per_hour, base_price)
 VALUES 
-('Business suv', 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf', 6, 6, 5.50, 150.00),
-('Luxury SUV', 'https://images.unsplash.com/photo-1503376780353-7e6692767b70', 6, 6, 7.20, 200.00);
+('Business suv', 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf', 6, 6, 5.50, 95.00, 150.00),
+('Luxury SUV', 'https://images.unsplash.com/photo-1503376780353-7e6692767b70', 6, 6, 7.20, 125.00, 200.00);
 
 -- Table for admin users
 CREATE TABLE IF NOT EXISTS admins (

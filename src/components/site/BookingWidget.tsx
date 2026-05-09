@@ -232,7 +232,7 @@ export function BookingWidget() {
             key={mapSrc}
             title="Route map"
             src={mapSrc}
-            className="absolute inset-0 h-full w-full opacity-80 grayscale invert contrast-125"
+            className="absolute inset-0 h-full w-full"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />

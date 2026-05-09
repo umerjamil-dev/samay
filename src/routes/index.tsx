@@ -2,9 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { Layout } from "@/components/site/Layout";
 import { ArrowRight, ShieldCheck, Clock, Star, Plane, Building2, Heart, MapPin } from "lucide-react";
 import { BookingWidget } from "@/components/site/BookingWidget";
+import { useState, useEffect } from "react";
+import { getHomeCars } from "@/lib/cars.server";
 import hero from "@/assets/hero.jpg";
-import sedan from "@/assets/sedan.jpg";
-import suv from "@/assets/suv.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -19,12 +19,18 @@ export const Route = createFileRoute("/")({
 });
 
 function HomePage() {
+  const [fleet, setFleet] = useState<any[]>([]);
+
+  useEffect(() => {
+    getHomeCars().then(data => setFleet(Array.isArray(data) ? data : []));
+  }, []);
+
   return (
     <Layout>
       {/* Hero */}
       <section className="relative overflow-hidden">
         <img src={hero} alt="Luxury black sedan in NYC" width={1920} height={1080} className="absolute inset-0 h-full w-full object-cover" />
-        <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
+        <div className="absolute inset-0 bg-black/60" />
         <div className="relative mx-auto max-w-7xl px-6 py-24 md:py-32">
           <span className="mb-6 inline-block rounded-full border border-gold/40 px-4 py-1.5 text-xs uppercase tracking-[0.3em] text-gold">
             New York · 24/7 Available
@@ -124,27 +130,29 @@ function HomePage() {
           <span className="text-xs uppercase tracking-[0.3em] text-gold">Our Fleet</span>
           <h2 className="mt-3 text-4xl md:text-5xl">Choose your ride.</h2>
         </div>
-        <div className="grid gap-8 md:grid-cols-2">
-          {[
-            { img: sedan, t: "Luxury Sedan", p: "$125", d: "Mercedes S-Class · 3 passengers" },
-            { img: suv, t: "Luxury SUV", p: "$95", d: "Cadillac Escalade · 6 passengers" },
-          ].map((c) => (
-            <div key={c.t} className="group overflow-hidden rounded-2xl border border-border bg-card transition hover:border-gold hover:shadow-luxury">
-              <div className="aspect-[16/10] overflow-hidden bg-black">
-                <img src={c.img} alt={c.t} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+        <div className="grid gap-8 md:grid-cols-3">
+          {fleet.map((c) => (
+            <div key={c.id} className="group overflow-hidden rounded-2xl border border-border bg-card transition hover:border-gold hover:shadow-luxury">
+              <div className="aspect-[16/10] overflow-hidden bg-black flex items-center justify-center">
+                <img src={c.image_url} alt={c.name} loading="lazy" className="h-full w-full object-contain transition-transform duration-700 group-hover:scale-105" />
               </div>
               <div className="flex items-center justify-between p-6">
                 <div>
-                  <h3 className="text-2xl">{c.t}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{c.d}</p>
+                  <h3 className="text-2xl">{c.name}</h3>
+                  <p className="mt-1 text-sm text-muted-foreground">{c.passengers} Passengers · {c.bags} Bags</p>
                 </div>
                 <div className="text-right">
-                  <div className="text-gold text-2xl font-semibold">{c.p}</div>
+                  <div className="text-gold text-2xl font-semibold">${c.price_per_hour}</div>
                   <div className="text-xs text-muted-foreground">per hour</div>
                 </div>
               </div>
             </div>
           ))}
+          {fleet.length === 0 && (
+            <div className="md:col-span-2 text-center text-muted-foreground py-10 italic">
+              Loading our premium fleet...
+            </div>
+          )}
         </div>
         <div className="mt-10 text-center">
           <Link to="/fleet" className="rounded-md border border-gold px-7 py-3 font-semibold text-gold hover:bg-gold hover:text-gold-foreground">
