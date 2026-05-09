@@ -332,6 +332,7 @@ function AdminPage() {
                             <td colSpan={6} className="px-8 py-6">
                               <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
                                 <DetailCell label="Phone" value={booking.phone || "—"} />
+                                <DetailCell label="ID Number" value={booking.id_number || "—"} />
                                 <DetailCell label="Flight #" value={booking.flight_number || "—"} />
                                 <DetailCell label="Passengers" value={booking.passengers || "—"} />
                                 <DetailCell label="Bags" value={booking.bags || "—"} />

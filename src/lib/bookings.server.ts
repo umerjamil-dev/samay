@@ -34,14 +34,14 @@ export const createBooking = createServerFn({ method: "POST" })
           pickup_date, pickup_time, pickup_location, dropoff_location, 
           transfer_type, return_date, return_time, extra_waiting, 
           distance, duration, passengers, bags, vehicle_name, 
-          price, first_name, last_name, email, phone, flight_number, comments
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          price, first_name, last_name, email, phone, id_number, flight_number, comments
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           pickupDate, pickupTime, data.pickup, data.dropoff,
           data.transferType || 'One Way', data.returnDate || null, data.returnTime || null, data.extraWaiting || null,
           data.distance || null, data.duration || null, data.passengers || 1, data.bags || 1,
           data.selectedCar?.name || 'Unknown', data.selectedCar?.price || 0,
-          data.firstName, data.lastName, data.email, data.phone,
+          data.firstName, data.lastName, data.email, data.phone, data.idNumber,
           data.flightNumber || null, data.comments || null
         ]
       ) as ResultSetHeader;

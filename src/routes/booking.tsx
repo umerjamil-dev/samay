@@ -288,6 +288,7 @@ function BookingPage() {
                         lastName:     (formData.get("lastName")     as string) || "",
                         email:        (formData.get("email")        as string) || "",
                         phone:        (formData.get("phone")        as string) || "",
+                        idNumber:     (formData.get("idNumber")     as string) || "",
                         flightNumber: (formData.get("flightNumber") as string) || null,
                         comments:     (formData.get("comments")     as string) || null,
                       };
@@ -317,6 +318,13 @@ function BookingPage() {
                       <div className="mt-4 grid gap-5 md:grid-cols-2">
                         <BookField name="email" label="Email Address" type="email" required placeholder="john@example.com" />
                         <BookField name="phone" label="Phone Number" type="tel" required placeholder="+1 (555) 000-0000" />
+                      </div>
+                    </div>
+
+                    <div>
+                      <SectionLabel>Identity Verification</SectionLabel>
+                      <div className="mt-4">
+                        <BookField name="idNumber" label="ID Number (CNIC / Passport)" required placeholder="Enter your ID number" />
                       </div>
                     </div>
 
