@@ -1,0 +1,123 @@
+@import "tailwindcss";
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-sans: "Outfit", system-ui, sans-serif;
+  
+  --shadow-luxury: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  --shadow-gold: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap');
+
+:root {
+  /* Deep Luxury Navy / Black */
+  --background: oklch(0.12 0.02 260);
+  --foreground: oklch(0.98 0.005 250);
+  --card: oklch(0.15 0.02 260);
+  --card-foreground: oklch(0.98 0.005 250);
+  --popover: oklch(0.12 0.02 260);
+  --popover-foreground: oklch(0.98 0.005 250);
+  
+  /* Gold primary */
+  --primary: oklch(0.75 0.12 85);
+  --primary-foreground: oklch(0.12 0.02 260);
+  --secondary: oklch(0.2 0.03 260);
+  --secondary-foreground: oklch(0.98 0.005 250);
+  --muted: oklch(0.18 0.03 260);
+  --muted-foreground: oklch(0.7 0.02 260);
+  --accent: oklch(0.75 0.12 85);
+  --accent-foreground: oklch(0.12 0.02 260);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 10%);
+  --ring: oklch(0.75 0.12 85);
+  --radius: 0.75rem;
+
+  --gold: #d4af37;
+  --gold-light: #f4d03f;
+  --gold-dark: #996515;
+  
+  --gradient-gold: linear-gradient(135deg, #996515 0%, #d4af37 50%, #f4d03f 100%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    font-family: 'Outfit', sans-serif;
+    @apply bg-background text-foreground antialiased;
+    background-image: radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.03) 0%, transparent 50%);
+  }
+}
+
+/* Luxury Utilities */
+.glass {
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.text-gradient-gold {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient-gold {
+  background: var(--gradient-gold);
+}
+
+.animate-luxury {
+  animation: fade-in-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.transition-luxury {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Fix for date/time picker icons */
+input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  cursor: pointer;
+}
